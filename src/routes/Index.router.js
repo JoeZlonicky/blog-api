@@ -1,3 +1,4 @@
+import { IndexController } from './Index.controller.js';
 import { AuthRouter } from './auth/Auth.router.js';
 import { CommentsRouter } from './comments/Comments.router.js';
 import { PostsRouter } from './posts/Posts.router.js';
@@ -10,5 +11,7 @@ IndexRouter.use('/auth', AuthRouter);
 IndexRouter.use('/comments', CommentsRouter);
 IndexRouter.use('/posts', PostsRouter);
 IndexRouter.use('/users', UsersRouter);
+
+IndexRouter.get('/', IndexController.get);
 
 export { IndexRouter };

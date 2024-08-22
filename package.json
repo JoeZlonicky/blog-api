@@ -8,6 +8,9 @@
     "start": "node src/app.js",
     "watch": "node --watch src/app.js"
   },
+  "prisma": {
+    "schema": "src/db/schema.prisma"
+  },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
@@ -20,6 +23,7 @@
   "dependencies": {
     "@prisma/client": "^5.18.0",
     "dotenv": "^16.4.5",
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "express-async-handler": "^1.2.0"
   }
 }

@@ -6,10 +6,12 @@
   "type": "module",
   "scripts": {
     "start": "node src/app.js",
-    "watch": "node --watch src/app.js"
+    "watch": "node --watch src/app.js",
+    "populate-db": "node src/scripts/seedDb.js"
   },
   "prisma": {
-    "schema": "src/db/schema.prisma"
+    "schema": "src/db/schema.prisma",
+    "seed": "node src/scripts/seedDb.js"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",

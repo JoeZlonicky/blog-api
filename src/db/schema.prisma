@@ -27,6 +27,8 @@ model Post {
   updatedAt DateTime @updatedAt
   published Boolean  @default(false)
 
+  comments Comment[]
+
   author   User @relation(fields: [authorId], references: [id])
   authorId Int
 }
@@ -40,4 +42,7 @@ model Comment {
 
   author   User @relation(fields: [authorId], references: [id])
   authorId Int
+
+  post   Post @relation(fields: [postId], references: [id])
+  postId Int
 }

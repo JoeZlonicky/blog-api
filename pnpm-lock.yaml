@@ -17,9 +17,6 @@ importers:
       express:
         specifier: ^4.19.2
         version: 4.19.2
-      prisma:
-        specifier: ^5.18.0
-        version: 5.18.0
     devDependencies:
       '@eslint/js':
         specifier: ^9.9.0
@@ -39,6 +36,9 @@ importers:
       prettier-plugin-prisma:
         specifier: ^5.0.0
         version: 5.0.0(prettier@3.3.3)
+      prisma:
+        specifier: ^5.18.0
+        version: 5.18.0
 
 packages:
 

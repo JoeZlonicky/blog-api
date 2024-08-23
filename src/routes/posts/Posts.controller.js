@@ -39,7 +39,25 @@ const getAll = expressAsyncHandler(async (req, res) => {
 
 const getById = expressAsyncHandler(async (req, res, next) => {
   const postId = parseInt(req.params.postId);
-  const result = await db.post.findUnique({ where: { id: postId } });
+  const result = await db.post.findUnique({
+    include: {
+      author: {
+        select: {
+          username: true,
+        },
+      },
+      comments: {
+        include: {
+          author: {
+            select: {
+              username: true,
+            },
+          },
+        },
+      },
+    },
+    where: { id: postId },
+  });
   if (!result) {
     next();
     return;

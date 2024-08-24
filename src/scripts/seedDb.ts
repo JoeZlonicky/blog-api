@@ -70,8 +70,11 @@ async function seed() {
   console.log('Done!');
 }
 
-try {
-  await seed();
-} catch (err) {
-  console.error(err);
-}
+(async () => {
+  try {
+    await seed();
+  } catch (err) {
+    console.error(err);
+  }
+})();
+

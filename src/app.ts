@@ -1,6 +1,6 @@
-import { handle404 } from './middleware/handle404.js';
-import { handle500 } from './middleware/handle500.js';
-import { IndexRouter } from './routes/Index.router.js';
+import { handle404 } from './middleware/handle404';
+import { handle500 } from './middleware/handle500';
+import { IndexRouter } from './routes/Index.router';
 import cors from 'cors';
 import express from 'express';
 

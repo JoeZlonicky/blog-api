@@ -1,4 +1,4 @@
-import { CommentsController } from './Comments.controller.js';
+import { CommentsController } from './Comments.controller';
 import { Router } from 'express';
 
 const CommentsRouter = Router();

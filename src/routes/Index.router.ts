@@ -1,8 +1,8 @@
-import { IndexController } from './Index.controller.js';
-import { AuthRouter } from './auth/Auth.router.js';
-import { CommentsRouter } from './comments/Comments.router.js';
-import { PostsRouter } from './posts/Posts.router.js';
-import { UsersRouter } from './users/Users.router.js';
+import { IndexController } from './Index.controller';
+import { AuthRouter } from './auth/Auth.router';
+import { CommentsRouter } from './comments/Comments.router';
+import { PostsRouter } from './posts/Posts.router';
+import { UsersRouter } from './users/Users.router';
 import { Router } from 'express';
 
 const IndexRouter = Router();

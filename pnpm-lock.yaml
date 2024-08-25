@@ -42,6 +42,12 @@ importers:
       '@types/node':
         specifier: ^22.5.0
         version: 22.5.0
+      '@typescript-eslint/eslint-plugin':
+        specifier: ^8.2.0
+        version: 8.2.0(@typescript-eslint/parser@8.2.0(eslint@9.9.0)(typescript@5.5.4))(eslint@9.9.0)(typescript@5.5.4)
+      '@typescript-eslint/parser':
+        specifier: ^8.2.0
+        version: 8.2.0(eslint@9.9.0)(typescript@5.5.4)
       eslint:
         specifier: ^9.9.0
         version: 9.9.0
@@ -66,9 +72,6 @@ importers:
       typescript:
         specifier: ^5.5.4
         version: 5.5.4
-      typescript-eslint:
-        specifier: ^8.2.0
-        version: 8.2.0(eslint@9.9.0)(typescript@5.5.4)
 
 packages:
 
@@ -1185,15 +1188,6 @@ packages:
   type-is@1.6.18:
     resolution: {integrity: sha512-TkRKr9sUTxEH8MdfuCSP7VizJyzRNMjj2J2do2Jr3Kym598JVdEksuzPQCnlFPW4ky9Q+iA+ma9BGm06XQBy8g==}
     engines: {node: '>= 0.6'}
-
-  typescript-eslint@8.2.0:
-    resolution: {integrity: sha512-DmnqaPcML0xYwUzgNbM1XaKXpEb7BShYf2P1tkUmmcl8hyeG7Pj08Er7R9bNy6AufabywzJcOybQAtnD/c9DGw==}
-    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
-    peerDependencies:
-      typescript: '*'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
 
   typescript@5.5.4:
     resolution: {integrity: sha512-Mtq29sKDAEYP7aljRgtPOpTvOfbwRWlS6dPRzwjdE+C0R4brX/GUyhHSecbHMFLNBLcJIPt9nl9yG5TZ1weH+Q==}
@@ -2347,17 +2341,6 @@ snapshots:
     dependencies:
       media-typer: 0.3.0
       mime-types: 2.1.35
-
-  typescript-eslint@8.2.0(eslint@9.9.0)(typescript@5.5.4):
-    dependencies:
-      '@typescript-eslint/eslint-plugin': 8.2.0(@typescript-eslint/parser@8.2.0(eslint@9.9.0)(typescript@5.5.4))(eslint@9.9.0)(typescript@5.5.4)
-      '@typescript-eslint/parser': 8.2.0(eslint@9.9.0)(typescript@5.5.4)
-      '@typescript-eslint/utils': 8.2.0(eslint@9.9.0)(typescript@5.5.4)
-    optionalDependencies:
-      typescript: 5.5.4
-    transitivePeerDependencies:
-      - eslint
-      - supports-color
 
   typescript@5.5.4: {}
 

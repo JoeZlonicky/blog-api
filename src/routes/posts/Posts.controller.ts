@@ -8,27 +8,21 @@ import expressAsyncHandler from 'express-async-handler';
 const getAll = expressAsyncHandler(async (req: Request, res: Response) => {
   const limit = parseIntQuery(req.query.limit as string, 10);
   const offset = parseIntQuery(req.query.offset as string, 0);
-  const userId = parseIntQuery(req.query.userId as string);
+  const authorId = parseIntQuery(req.query.authorId as string);
 
   const results = await db.post.findMany({
     include: {
       author: {
         select: {
           username: true,
+          firstName: true,
+          lastName: true,
         },
       },
-      comments: {
-        include: {
-          author: {
-            select: {
-              username: true,
-            },
-          },
-        },
-      },
+      comments: true,
     },
     where: {
-      authorId: userId,
+      authorId,
     },
     skip: offset,
     take: limit,
@@ -48,17 +42,11 @@ const getById = expressAsyncHandler(
         author: {
           select: {
             username: true,
+            firstName: true,
+            lastName: true,
           },
         },
-        comments: {
-          include: {
-            author: {
-              select: {
-                username: true,
-              },
-            },
-          },
-        },
+        comments: true,
       },
       where: { id: postId },
     });

@@ -14,7 +14,7 @@ function get(req: Request, res: Response) {
     Auth: createUrl(req, 'auth'),
     Comments: createUrl(req, 'comments'),
     Posts: createUrl(req, 'posts'),
-    Users: createUrl(req, 'users'),
+    Authors: createUrl(req, 'authors'),
   };
 
   res.json(index);

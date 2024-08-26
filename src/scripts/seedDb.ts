@@ -3,7 +3,7 @@ import { db } from '../db/db.js';
 async function seed() {
   console.log('Seeding database...');
 
-  const alice = await db.user.upsert({
+  const alice = await db.author.upsert({
     where: { username: 'alice123' },
     include: {
       posts: true,
@@ -11,8 +11,9 @@ async function seed() {
     update: {},
     create: {
       username: 'alice123',
+      firstName: 'Alice',
+      lastName: 'Adams',
       password: 'verySecretPassword',
-      isAdmin: true,
 
       posts: {
         create: {
@@ -24,7 +25,17 @@ async function seed() {
     },
   });
 
-  const bob = await db.user.upsert({
+  await db.comment.deleteMany();
+  await db.comment.create({
+    data: {
+      firstName: 'Connor',
+      lastInitial: 'C',
+      content: 'First!',
+      postId: alice.posts[0].id,
+    },
+  });
+
+  await db.author.upsert({
     where: { username: 'bob234' },
     include: {
       posts: true,
@@ -32,36 +43,15 @@ async function seed() {
     update: {},
     create: {
       username: 'bob234',
+      firstName: 'Bob',
+      lastName: 'Billy',
       password: 'anotherVerySecretPassword',
-      isAdmin: true,
 
       posts: {
         create: {
           title: 'Second post',
           content: 'My first post as admin!',
           published: true,
-        },
-      },
-      comments: {
-        create: {
-          content: 'First!',
-          postId: alice.posts[0].id,
-        },
-      },
-    },
-  });
-
-  await db.user.upsert({
-    where: { username: 'caitlyn345' },
-    update: {},
-    create: {
-      username: 'caitlyn345',
-      password: 'pass1234',
-
-      comments: {
-        create: {
-          content: 'Just found this blog! Big fan!',
-          postId: bob.posts[0].id,
         },
       },
     },
@@ -77,4 +67,3 @@ async function seed() {
     console.error(err);
   }
 })();
-

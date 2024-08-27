@@ -22,4 +22,19 @@ const getById = expressAsyncHandler(
   },
 );
 
-export const CommentsController = { getAll, getById };
+const create = expressAsyncHandler(async (req: Request, res: Response) => {
+  console.log(req.body);
+  const { postId, content, firstName, lastInitial } = req.body;
+  const comment = await db.comment.create({
+    data: {
+      postId,
+      content,
+      firstName,
+      lastInitial,
+    },
+  });
+
+  res.json(comment);
+});
+
+export const CommentsController = { getAll, getById, create };

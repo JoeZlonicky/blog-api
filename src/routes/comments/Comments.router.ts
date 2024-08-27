@@ -6,5 +6,6 @@ const CommentsRouter = Router();
 CommentsRouter.get('/:commentId(\\d)+', CommentsController.getById);
 
 CommentsRouter.get('/', CommentsController.getAll);
+CommentsRouter.post('/', CommentsController.create);
 
 export { CommentsRouter };

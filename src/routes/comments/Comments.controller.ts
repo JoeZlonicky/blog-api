@@ -1,4 +1,5 @@
 import { db } from '../../db/db';
+import { pascalCase } from 'change-case';
 import { NextFunction } from 'express';
 import { Request } from 'express';
 import { Response } from 'express';
@@ -23,14 +24,14 @@ const getById = expressAsyncHandler(
 );
 
 const create = expressAsyncHandler(async (req: Request, res: Response) => {
-  console.log(req.body);
   const { postId, content, firstName, lastInitial } = req.body;
+
   const comment = await db.comment.create({
     data: {
-      postId,
+      postId: parseInt(postId),
       content,
-      firstName,
-      lastInitial,
+      firstName: pascalCase(firstName),
+      lastInitial: pascalCase(lastInitial),
     },
   });
 

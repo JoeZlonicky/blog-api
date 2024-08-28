@@ -1,5 +1,4 @@
-import { Response } from 'express';
-import { Request } from 'express';
+import { Request, Response } from 'express';
 
 function handle404(_req: Request, res: Response) {
   res.type('txt');

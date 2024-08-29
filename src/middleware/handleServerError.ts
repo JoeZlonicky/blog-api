@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
-function handle500(
+function handleServerError(
   err: Error,
   _req: Request,
   res: Response,
@@ -12,4 +12,4 @@ function handle500(
   res.status(500).send('500 Internal Server Error');
 }
 
-export { handle500 };
+export { handleServerError };

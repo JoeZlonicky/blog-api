@@ -1,4 +1,5 @@
-import { db } from '../db/db.js';
+import { hashPassword } from '../auth/hashPassword';
+import { db } from '../db/db';
 
 async function seed() {
   console.log('Seeding database...');
@@ -13,7 +14,7 @@ async function seed() {
       username: 'alice123',
       firstName: 'Alice',
       lastName: 'Adams',
-      password: 'verySecretPassword',
+      password: await hashPassword('1234'),
 
       posts: {
         create: {
@@ -45,7 +46,7 @@ async function seed() {
       username: 'bob234',
       firstName: 'Bob',
       lastName: 'Billy',
-      password: 'anotherVerySecretPassword',
+      password: await hashPassword('1234'),
 
       posts: {
         create: {

@@ -1,37 +1,32 @@
-import { db } from '../../db/db';
 import { handleFailedAuth } from '../../middleware/handleFailedAuth';
-import { Request, Response } from 'express';
+import type { Author } from '@prisma/client';
+import { type NextFunction, Request, Response } from 'express';
 import expressAsyncHandler from 'express-async-handler';
 import jwt from 'jsonwebtoken';
+import passport from 'passport';
 
-const create = expressAsyncHandler(async (req: Request, res: Response) => {
-  const { username, password } = req.body;
-
-  const user = await db.author.findUnique({
-    where: { username: username, password: password },
-  });
-
-  console.log(user);
-
-  if (!user) {
-    handleFailedAuth(req, res);
-    return;
-  }
-
-  jwt.sign(
-    { username },
-    process.env.SESSION_SECRET,
-    (err: Error | null, token: string | undefined) => {
-      if (err) {
-        throw Error(err.toString());
+const create = expressAsyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const onAuthenticate: passport.AuthenticateCallback = async function (
+      err,
+      user,
+    ) {
+      if (err || !user) {
+        handleFailedAuth(req, res);
+        return;
       }
+
+      const author = user as Author;
+      const token = jwt.sign(
+        { id: author.id, username: author.username },
+        process.env.SESSION_SECRET,
+        { expiresIn: '1h' },
+      );
       res.send(token);
-    },
-  );
-});
+    };
 
-function remove(_req: Request, res: Response) {
-  res.status(200).end();
-}
+    passport.authenticate('local', onAuthenticate)(req, res, next);
+  },
+);
 
-export const AuthController = { create, remove };
+export const AuthController = { create };

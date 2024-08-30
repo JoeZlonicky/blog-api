@@ -3,8 +3,6 @@
   "include": ["src/**/*"],
   "compilerOptions": {
     "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "types": ["node"],
-    "typeRoots": ["./src/types"]
+    "moduleResolution": "Bundler"
   }
 }

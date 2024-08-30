@@ -4,14 +4,18 @@ import { Response } from 'express';
 import { NextFunction } from 'express';
 import expressAsyncHandler from 'express-async-handler';
 
-const getAll = expressAsyncHandler(async (_req: Request, res: Response) => {
+const getAll = expressAsyncHandler(async (req: Request, res: Response) => {
   const allUsers = await db.author.findMany({
     select: {
       id: true,
       username: true,
       firstName: true,
       lastName: true,
-      posts: true,
+      posts: {
+        where: {
+          published: req.user ? undefined : true,
+        },
+      },
     },
   });
   res.json(allUsers);
@@ -27,7 +31,11 @@ const getById = expressAsyncHandler(
         username: true,
         firstName: true,
         lastName: true,
-        posts: true,
+        posts: {
+          where: {
+            published: req.user ? undefined : true,
+          },
+        },
       },
     });
     if (!user) {

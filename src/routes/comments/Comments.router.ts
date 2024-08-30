@@ -1,4 +1,4 @@
-import { validate } from '../../middleware/validate';
+import { requestValidation } from '../../middleware/requestValidation';
 import { CommentsController } from './Comments.controller';
 import { CommentsValidator } from './Comments.validator';
 import { Router } from 'express';
@@ -11,7 +11,7 @@ CommentsRouter.get('/', CommentsController.getAll);
 CommentsRouter.post(
   '/',
   CommentsValidator.create,
-  validate,
+  requestValidation,
   CommentsController.create,
 );
 

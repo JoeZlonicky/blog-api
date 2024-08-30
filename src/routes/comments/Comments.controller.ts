@@ -5,15 +5,22 @@ import { Request } from 'express';
 import { Response } from 'express';
 import expressAsyncHandler from 'express-async-handler';
 
-const getAll = expressAsyncHandler(async (_req: Request, res: Response) => {
-  const allComments = await db.comment.findMany();
+const getAll = expressAsyncHandler(async (req: Request, res: Response) => {
+  const allComments = await db.comment.findMany({
+    where: { post: { published: req.user ? undefined : true } },
+  });
   res.json(allComments);
 });
 
 const getById = expressAsyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     const commentId = parseInt(req.params.commentId);
-    const comment = await db.comment.findUnique({ where: { id: commentId } });
+    const comment = await db.comment.findUnique({
+      where: {
+        id: commentId,
+        post: { published: req.user ? undefined : true },
+      },
+    });
     if (!comment) {
       next();
       return;

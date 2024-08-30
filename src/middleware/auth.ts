@@ -10,28 +10,27 @@ interface JWTPayload {
 }
 
 const auth = expressAsyncHandler(
-  async (req: Request, _res: Response, next: NextFunction) => {
-    try {
-      const token = req.get('Authorization')?.split(' ')[1];
-      if (!token) {
-        next();
-        return;
-      }
-
-      const payload = jwt.verify(
-        token,
-        process.env.SESSION_SECRET,
-      ) as JWTPayload;
-      const user = await db.author.findUnique({ where: { id: payload.id } });
-
-      if (user) {
-        req.user = user;
-      }
-
+  async (req: Request, res: Response, next: NextFunction) => {
+    const token = req.get('Authorization')?.split(' ')[1];
+    if (!token) {
       next();
-    } catch {
-      next();
+      return;
     }
+
+    let payload = null;
+    try {
+      payload = jwt.verify(token, process.env.SESSION_SECRET) as JWTPayload;
+    } catch {
+      res.type('text');
+      res.status(401).send('401 Invalid Authentication Token');
+      return;
+    }
+
+    const user = await db.author.findUnique({ where: { id: payload.id } });
+    if (user) {
+      req.user = user;
+    }
+    next();
   },
 );
 

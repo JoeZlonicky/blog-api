@@ -6,7 +6,12 @@ import jwt from 'jsonwebtoken';
 const create = expressAsyncHandler(async (req: Request, res: Response) => {
   const author = req.user as Author; // Set in validator
   const token = jwt.sign(
-    { id: author.id, username: author.username },
+    {
+      id: author.id,
+      username: author.username,
+      firstName: author.firstName,
+      lastName: author.lastName,
+    },
     process.env.SESSION_SECRET,
     { expiresIn: '1h' },
   );

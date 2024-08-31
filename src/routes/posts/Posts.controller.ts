@@ -52,4 +52,25 @@ const getById = expressAsyncHandler(
   },
 );
 
-export const PostsController = { getAll, getById };
+const create = expressAsyncHandler(async (req: Request, res: Response) => {
+  const { authorId } = req.body;
+  const result = await db.post.create({
+    data: {
+      title: 'New Post',
+      authorId: parseInt(authorId),
+    },
+    include: {
+      author: {
+        select: {
+          username: true,
+          firstName: true,
+          lastName: true,
+        },
+      },
+      comments: true,
+    },
+  });
+  res.json(result);
+});
+
+export const PostsController = { getAll, getById, create };

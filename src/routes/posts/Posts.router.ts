@@ -1,4 +1,7 @@
+import { needsAuth } from '../../middleware/needsAuth';
+import { requestValidation } from '../../middleware/requestValidation';
 import { PostsController } from './Posts.controller';
+import { PostsValidator } from './Posts.validator';
 import { Router } from 'express';
 
 const PostsRouter = Router();
@@ -7,5 +10,12 @@ PostsRouter.get('/:postId(\\d)+', PostsController.getById);
 
 // q: authorId?
 PostsRouter.get('/', PostsController.getAll);
+PostsRouter.post(
+  '/',
+  needsAuth,
+  PostsValidator.create,
+  requestValidation,
+  PostsController.create,
+);
 
 export { PostsRouter };

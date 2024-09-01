@@ -132,7 +132,7 @@ const remove = expressAsyncHandler(
       return;
     }
 
-    const result = db.post.delete({
+    const result = await db.post.delete({
       include: {
         author: {
           select: {
@@ -151,6 +151,7 @@ const remove = expressAsyncHandler(
       },
       where: { id: postId },
     });
+
     if (!result) {
       next();
       return;

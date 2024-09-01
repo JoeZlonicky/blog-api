@@ -12,7 +12,10 @@ const create = [
     .bail()
     .custom(async (value, { req }) => {
       const post = await db.post.findUnique({
-        where: { id: parseInt(value), published: req.user ? undefined : true },
+        where: {
+          id: parseInt(value),
+          publishedAt: req.user ? undefined : { not: null },
+        },
       });
       if (!post) {
         throw new Error('postId does not match any post');

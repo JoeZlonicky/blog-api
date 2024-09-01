@@ -20,4 +20,18 @@ const create = [
     }),
 ];
 
-export const PostsValidator = { create };
+const update = [
+  body('title')
+    .trim()
+    .optional()
+    .isLength({ min: 1 })
+    .withMessage('title empty'),
+  body('content').trim().optional(),
+  body('published')
+    .trim()
+    .optional()
+    .isBoolean()
+    .withMessage('published not true or false'),
+];
+
+export const PostsValidator = { create, update };

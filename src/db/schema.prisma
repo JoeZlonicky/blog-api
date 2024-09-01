@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["omitApi"]
 }
 
 datasource db {
@@ -23,9 +24,8 @@ model Post {
   title   String
   content String?
 
-  published Boolean  @default(false)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  publishedAt DateTime?
+  createdAt   DateTime  @default(now())
 
   comments Comment[]
 
@@ -39,8 +39,8 @@ model Comment {
   lastInitial String @db.Char(1)
   content     String
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  approvedAt DateTime?
+  createdAt  DateTime  @default(now())
 
   post   Post @relation(fields: [postId], references: [id])
   postId Int

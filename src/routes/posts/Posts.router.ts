@@ -7,6 +7,14 @@ import { Router } from 'express';
 const PostsRouter = Router();
 
 PostsRouter.get('/:postId(\\d)+', PostsController.getById);
+PostsRouter.patch(
+  '/:postId(\\d)+',
+  needsAuth,
+  PostsValidator.update,
+  requestValidation,
+  PostsController.update,
+);
+PostsRouter.delete('/:postId(\\d)+', needsAuth, PostsController.remove);
 
 // q: authorId?
 PostsRouter.get('/', PostsController.getAll);

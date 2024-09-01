@@ -7,7 +7,13 @@ import expressAsyncHandler from 'express-async-handler';
 
 const getAll = expressAsyncHandler(async (req: Request, res: Response) => {
   const allComments = await db.comment.findMany({
-    where: { post: { published: req.user ? undefined : true } },
+    where: {
+      approvedAt: req.user ? undefined : { not: null },
+      post: { publishedAt: req.user ? undefined : { not: null } },
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
   });
   res.json(allComments);
 });
@@ -18,7 +24,8 @@ const getById = expressAsyncHandler(
     const comment = await db.comment.findUnique({
       where: {
         id: commentId,
-        post: { published: req.user ? undefined : true },
+        approvedAt: req.user ? undefined : { not: null },
+        post: { publishedAt: req.user ? undefined : { not: null } },
       },
     });
     if (!comment) {

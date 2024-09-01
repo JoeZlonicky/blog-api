@@ -6,17 +6,31 @@ import expressAsyncHandler from 'express-async-handler';
 
 const getAll = expressAsyncHandler(async (req: Request, res: Response) => {
   const allUsers = await db.author.findMany({
-    select: {
-      id: true,
-      username: true,
-      firstName: true,
-      lastName: true,
+    include: {
       posts: {
         where: {
-          published: req.user ? undefined : true,
+          publishedAt: req.user ? undefined : { not: null },
+        },
+        omit: {
+          createdAt: req.user ? false : true,
+        },
+        orderBy: {
+          publishedAt: 'desc',
         },
       },
     },
+    omit: {
+      username: true,
+      password: true,
+    },
+    orderBy: [
+      {
+        lastName: 'asc',
+      },
+      {
+        firstName: 'asc',
+      },
+    ],
   });
   res.json(allUsers);
 });
@@ -26,16 +40,22 @@ const getById = expressAsyncHandler(
     const userId = parseInt(req.params.userId);
     const user = await db.author.findUnique({
       where: { id: userId },
-      select: {
-        id: true,
-        username: true,
-        firstName: true,
-        lastName: true,
+      include: {
         posts: {
+          omit: {
+            createdAt: req.user ? false : true,
+          },
           where: {
-            published: req.user ? undefined : true,
+            publishedAt: req.user ? undefined : { not: null },
+          },
+          orderBy: {
+            publishedAt: 'desc',
           },
         },
+      },
+      omit: {
+        username: true,
+        password: true,
       },
     });
     if (!user) {

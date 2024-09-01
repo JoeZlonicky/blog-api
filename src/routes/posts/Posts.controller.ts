@@ -82,12 +82,12 @@ const getById = expressAsyncHandler(
 const update = expressAsyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     const postId = parseInt(req.params.postId);
-    const { title, content, published } = req.body;
+    const { title, content, setPublished } = req.body;
 
     let newPublishedAt = undefined;
-    if (published === 'true') {
+    if (setPublished === true) {
       newPublishedAt = new Date();
-    } else if (published === 'false') {
+    } else if (setPublished === false) {
       newPublishedAt = null;
     }
 

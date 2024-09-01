@@ -7,6 +7,8 @@ import { Router } from 'express';
 const PostsRouter = Router();
 
 PostsRouter.get('/:postId(\\d)+', PostsController.getById);
+
+// {title, content, setPublished=(true|false)}
 PostsRouter.patch(
   '/:postId(\\d)+',
   needsAuth,

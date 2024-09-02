@@ -12,4 +12,6 @@ You can also check out the corresponding [user-facing website](https://github.co
 
 3. Set up database with `pnpm prisma migrate dev`.
 
-4. Run with `pnpm start`
+4. Seed database with `pnpm prisma db seed` (optional).
+
+5. Run with `pnpm start`

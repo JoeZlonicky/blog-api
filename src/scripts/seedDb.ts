@@ -20,7 +20,7 @@ async function seed() {
         create: {
           title: 'First post',
           content: 'Hmm... what should I say?',
-          published: true,
+          publishedAt: new Date(),
         },
       },
     },
@@ -52,7 +52,6 @@ async function seed() {
         create: {
           title: 'Second post',
           content: 'My first post as admin!',
-          published: true,
         },
       },
     },

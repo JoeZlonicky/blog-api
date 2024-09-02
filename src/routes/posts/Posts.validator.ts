@@ -27,11 +27,11 @@ const update = [
     .isLength({ min: 1 })
     .withMessage('title empty'),
   body('content').trim().optional(),
-  body('published')
+  body('setPublished')
     .trim()
     .optional()
     .isBoolean()
-    .withMessage('published not true or false'),
+    .withMessage('setPublished not true or false'),
 ];
 
 export const PostsValidator = { create, update };

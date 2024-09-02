@@ -85,9 +85,9 @@ const update = expressAsyncHandler(
     const { title, content, setPublished } = req.body;
 
     let newPublishedAt = undefined;
-    if (setPublished === true) {
+    if (setPublished === 'true') {
       newPublishedAt = new Date();
-    } else if (setPublished === false) {
+    } else if (setPublished === 'false') {
       newPublishedAt = null;
     }
 

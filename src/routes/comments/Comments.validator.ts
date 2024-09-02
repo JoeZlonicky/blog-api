@@ -40,4 +40,12 @@ const create = [
     .withMessage('lastInitial not alpha'),
 ];
 
-export const CommentsValidator = { create };
+const update = [
+  body('setApproved')
+    .trim()
+    .optional()
+    .isBoolean()
+    .withMessage('setApproved not true or false'),
+];
+
+export const CommentsValidator = { create, update };

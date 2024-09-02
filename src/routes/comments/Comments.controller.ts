@@ -37,6 +37,57 @@ const getById = expressAsyncHandler(
   },
 );
 
+const update = expressAsyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const commentId = parseInt(req.params.commentId);
+    const { setApproved } = req.body;
+
+    let newApprovedAt = undefined;
+    if (setApproved === 'true') {
+      newApprovedAt = new Date();
+    } else if (setApproved === 'false') {
+      newApprovedAt = null;
+    }
+
+    const result = await db.comment.update({
+      data: {
+        approvedAt: newApprovedAt,
+      },
+      where: {
+        id: commentId,
+      },
+    });
+
+    if (!result) {
+      next();
+      return;
+    }
+
+    res.json(result);
+  },
+);
+
+const remove = expressAsyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const commentId = parseInt(req.params.commentId);
+    if (!commentId) {
+      next();
+      return;
+    }
+
+    const result = await db.comment.delete({
+      where: { id: commentId },
+    });
+
+    if (!result) {
+      next();
+      return;
+    }
+
+    res.json(result);
+  },
+);
+
 const create = expressAsyncHandler(async (req: Request, res: Response) => {
   const { postId, content, firstName, lastInitial } = req.body;
 
@@ -52,4 +103,4 @@ const create = expressAsyncHandler(async (req: Request, res: Response) => {
   res.json(comment);
 });
 
-export const CommentsController = { getAll, getById, create };
+export const CommentsController = { getAll, getById, update, remove, create };

@@ -1,6 +1,8 @@
 # Blog API
 
-An Express.js blog API.
+A blog REST API made using TypeScript, Express, and Prisma. Implements JWT sessions.
+
+You can also check out the corresponding [user-facing website](https://github.com/JoeZlonicky/blog-website) and [admin dashboard](https://github.com/JoeZlonicky/blog-admin) projects made using Vue.
 
 ## Running
 
